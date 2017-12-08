@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Weather by Kulibin</string>
+    <string name="city_input_hint">Введите город</string>
 </resources>

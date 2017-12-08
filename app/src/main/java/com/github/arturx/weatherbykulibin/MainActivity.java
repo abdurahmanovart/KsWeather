@@ -3,6 +3,7 @@ package com.github.arturx.weatherbykulibin;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -19,7 +20,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        showAlertDialog();
         initUI();
+    }
+
+    private void showAlertDialog() {
+        new AlertDialog.Builder(getApplicationContext())
+                .setView(R.layout.select_city_dialog)
+                .create()
+                .show();
+
     }
 
     private void initUI() {
