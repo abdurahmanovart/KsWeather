@@ -4,4 +4,11 @@
     <string name="enter_city_name">Введите город</string>
     <string name="ok_button">Ок</string>
     <string name="error_city_input">Ошибка! Введите полное название города(не меньше 3 букв)</string>
+    <string name="enter_city">Введите название города!</string>
+    <string name="enter_correct_city_name">Введите корректное название латинскими буквами (название не может быть короче 3 символов)</string>
+    <string name="ok">Oк</string>
+    <string name="no">Нет</string>
+    <string name="yes">Да</string>
+    <string name="exit_app_question">Выйти из приложения?</string>
+    <string name="exit">Выход</string>
 </resources>

@@ -1,9 +1,10 @@
 package com.github.arturx.weatherbykulibin.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,6 +29,27 @@ public class SelectCityActivity extends AppCompatActivity {
         initUI();
     }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.exit_app_question)
+                .setTitle(R.string.exit)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finishAffinity();
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create()
+                .show();
+    }
+
     private void initUI() {
         mEditText = findViewById(R.id.input_city_edit_text);
         mOkButton = findViewById(R.id.ok_button);
@@ -36,20 +58,29 @@ public class SelectCityActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String cityName = mEditText.getText().toString();
                 if (cityName.length() < 3) {
-                    showSnackBar(v);
+                    showAlertDialog();
                 } else {
                     Intent intent = new Intent();
-                    intent.putExtra(EXTRA_CITY_NAME,cityName);
-                    setResult(RESULT_OK,intent);
+                    intent.putExtra(EXTRA_CITY_NAME, cityName);
+                    setResult(RESULT_OK, intent);
                     finish();
                 }
             }
         });
     }
 
-    private void showSnackBar(View view) {
-        Snackbar.make(view, R.string.error_city_input,Snackbar.LENGTH_LONG).show();
+    private void showAlertDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.enter_city)
+                .setMessage(R.string.enter_correct_city_name)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create()
+                .show();
     }
-
 
 }
