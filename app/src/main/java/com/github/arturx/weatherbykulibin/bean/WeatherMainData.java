@@ -13,7 +13,7 @@ import com.google.common.base.Objects;
 public class WeatherMainData {
 
     public WeatherMainData() {
-    //empty constructor needed by jackson
+        //empty constructor needed by jackson
     }
 
     @JsonProperty("temp")

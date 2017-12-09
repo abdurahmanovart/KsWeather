@@ -1,10 +1,11 @@
 package com.github.arturx.weatherbykulibin;
 
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -12,8 +13,7 @@ import com.github.arturx.weatherbykulibin.adapter.WeatherPagerAdapter;
 import com.github.arturx.weatherbykulibin.bean.BaseResponse;
 import com.github.arturx.weatherbykulibin.net.ApiClient;
 import com.github.arturx.weatherbykulibin.net.WeatherService;
-
-import java.util.List;
+import com.github.arturx.weatherbykulibin.ui.SelectCityActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,28 +21,43 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String EXTRA_CITY_NAME = "city_name";
+    public static final String API_KEY = "da5a35e057d3d8d4df5a4b669da41d0d";
+    public static final String ACCURACY = "like";
+    public static final String UNITS = "metric";
+
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private WeatherPagerAdapter mAdapter;
     private WeatherService mService;
+    private String mCityName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        showAlertDialog();
+        getCityName();
         initUI();
-        getDataFromServer();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 2 && resultCode == RESULT_OK) {
+            mCityName = data.getExtras().getString(EXTRA_CITY_NAME);
+            getDataFromServer();
+
+        }
     }
 
     private void getDataFromServer() {
         mService = ApiClient.getClient().create(WeatherService.class);
-        Call<BaseResponse> call = mService.getWeatherData("Moscow", "like", "metric", "da5a35e057d3d8d4df5a4b669da41d0d");
+        Call<BaseResponse> call = mService.getWeatherData(mCityName, ACCURACY, UNITS, API_KEY);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
-                BaseResponse response1 = response.body();
+
             }
 
             @Override
@@ -50,15 +65,10 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(t.getMessage());
             }
         });
-    }
-
-    private void showAlertDialog() {
-        new AlertDialog.Builder(getApplicationContext())
-                .setView(R.layout.select_city_dialog)
-                .create()
-                .show();
 
     }
+
+    //region private methods
 
     private void initUI() {
         initToolbar();
@@ -69,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private void initToolbar() {
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initTabLayout() {
@@ -80,4 +91,11 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.view_pager);
         mViewPager.setAdapter(mAdapter);
     }
+
+    private void getCityName() {
+        startActivityForResult(SelectCityActivity.createExplicitIntent(getApplicationContext()), 2);
+    }
+
+    //endregion
 }
+

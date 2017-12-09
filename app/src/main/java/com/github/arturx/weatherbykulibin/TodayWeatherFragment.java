@@ -12,7 +12,7 @@ import android.widget.ImageView;
  * Created by arturx on 06.12.17.
  */
 
-public class BasicWeatherFragment extends Fragment {
+public class TodayWeatherFragment extends Fragment {
 
     private String mTitle;
     private ImageView mWeatherImage;

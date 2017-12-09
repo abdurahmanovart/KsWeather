@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.github.arturx.weatherbykulibin.BasicWeatherFragment;
+import com.github.arturx.weatherbykulibin.TodayWeatherFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class WeatherPagerAdapter extends FragmentStatePagerAdapter {
 
-    private List<BasicWeatherFragment> mList;
+    private List<TodayWeatherFragment> mList;
 
     public WeatherPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -24,7 +24,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return mList.isEmpty()? null:mList.get(position);
+        return mList.isEmpty() ? null : mList.get(position);
     }
 
     @Override
