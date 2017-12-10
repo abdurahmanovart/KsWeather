@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Погода</string>
     <string name="city_input_hint">Введите название города (на английском)</string>
-    <string name="enter_city_name">Введите город</string>
+    <string name="enter_city_name">Введите город (на английском)</string>
     <string name="ok_button">Ок</string>
     <string name="error_city_input">Ошибка! Введите полное название города(не меньше 3 букв)</string>
     <string name="enter_city">Введите название города!</string>

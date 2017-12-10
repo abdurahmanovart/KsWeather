@@ -13,11 +13,11 @@ import java.util.List;
  * Created by arturx on 06.12.17.
  */
 
-public class WeatherPagerAdapter extends FragmentStatePagerAdapter {
+public class CustomPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<TodayWeatherFragment> mList;
 
-    public WeatherPagerAdapter(FragmentManager fm) {
+    public CustomPagerAdapter(FragmentManager fm) {
         super(fm);
         mList = new ArrayList<>();
     }

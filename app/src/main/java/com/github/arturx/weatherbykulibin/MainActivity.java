@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.github.arturx.weatherbykulibin.adapter.WeatherPagerAdapter;
+import com.github.arturx.weatherbykulibin.adapter.CustomPagerAdapter;
 import com.github.arturx.weatherbykulibin.bean.BaseResponse;
 import com.github.arturx.weatherbykulibin.net.ApiClient;
 import com.github.arturx.weatherbykulibin.net.WeatherService;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    private WeatherPagerAdapter mAdapter;
+    private CustomPagerAdapter mAdapter;
     private WeatherService mService;
     private String mCityName;
 
@@ -57,7 +57,11 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
-
+                try {
+                    System.out.println(response.body().getDataList().get(0).getMainWeatherDataData().getTemperature());
+                } catch (Exception e) {
+                    getCityName();
+                }
             }
 
             @Override
