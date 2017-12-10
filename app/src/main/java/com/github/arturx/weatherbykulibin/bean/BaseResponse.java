@@ -17,11 +17,17 @@ public class BaseResponse {
     public BaseResponse() {
     }
 
+    @JsonProperty("cod")
+    private int mCode;
+
     @JsonProperty("cnt")
     private int resultCount;
 
     @JsonProperty("list")
     private List<WeatherData> mDataList;
+
+    @JsonProperty("city")
+    private City mCity;
 
     public int getResultCount() {
         return resultCount;
@@ -31,28 +37,36 @@ public class BaseResponse {
         return mDataList;
     }
 
+    public int getCode() {
+        return mCode;
+    }
+
     @JsonIgnore
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BaseResponse that = (BaseResponse) o;
-        return resultCount == that.resultCount &&
-                Objects.equal(mDataList, that.mDataList);
+        return mCode == that.mCode &&
+                resultCount == that.resultCount &&
+                Objects.equal(mDataList, that.mDataList) &&
+                Objects.equal(mCity, that.mCity);
     }
 
     @JsonIgnore
     @Override
     public int hashCode() {
-        return Objects.hashCode(resultCount, mDataList);
+        return Objects.hashCode(mCode, resultCount, mDataList, mCity);
     }
 
     @JsonIgnore
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
+                .add("mCode", mCode)
                 .add("resultCount", resultCount)
                 .add("mDataList", mDataList)
+                .add("mCity", mCity)
                 .toString();
     }
 }
