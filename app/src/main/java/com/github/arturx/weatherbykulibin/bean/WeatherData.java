@@ -1,5 +1,8 @@
 package com.github.arturx.weatherbykulibin.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +15,10 @@ import java.util.List;
  * Created by arturx on 07.12.17.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WeatherData {
+public class WeatherData implements Parcelable{
+
+    public static final ClassCreator CREATOR = new ClassCreator();
+
     public WeatherData() {
     }
 
@@ -25,14 +31,47 @@ public class WeatherData {
     @JsonProperty("wind")
     private WindData mWindData;
 
+
+    protected WeatherData(Parcel in) {
+        mMainWeatherDataData = in.readParcelable(WeatherMainData.class.getClassLoader());
+        mDescriptionData = in.createTypedArrayList(WeatherDescriptionData.CREATOR);
+        mWindData = in.readParcelable(WindData.class.getClassLoader());
+    }
+
+    @JsonIgnore
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(mMainWeatherDataData, flags);
+        dest.writeTypedList(mDescriptionData);
+        dest.writeParcelable(mWindData, flags);
+    }
+
+    @JsonIgnore
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    private static final class ClassCreator implements Creator<WeatherData> {
+        @Override
+        public WeatherData createFromParcel(Parcel in) {
+            return new WeatherData(in);
+        }
+
+        @Override
+        public WeatherData[] newArray(int size) {
+            return new WeatherData[size];
+        }
+    }
+
     public WeatherMainData getMainWeatherDataData() {
         return mMainWeatherDataData;
     }
 
-
     public List<WeatherDescriptionData> getDescriptionData() {
         return mDescriptionData;
     }
+
 
     public WindData getWindData() {
         return mWindData;
@@ -64,4 +103,5 @@ public class WeatherData {
                 .add("mWindData", mWindData)
                 .toString();
     }
+
 }

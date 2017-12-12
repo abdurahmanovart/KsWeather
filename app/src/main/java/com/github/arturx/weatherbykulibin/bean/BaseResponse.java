@@ -1,5 +1,8 @@
 package com.github.arturx.weatherbykulibin.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +15,9 @@ import java.util.List;
  * Created by arturx on 07.12.17.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BaseResponse {
+public class BaseResponse implements Parcelable{
+
+    public static final ClassCreator CREATOR = new ClassCreator();
 
     public BaseResponse() {
     }
@@ -28,6 +33,36 @@ public class BaseResponse {
 
     @JsonProperty("city")
     private City mCity;
+
+    protected BaseResponse(Parcel in) {
+        mCode = in.readInt();
+        resultCount = in.readInt();
+        mDataList = in.createTypedArrayList(WeatherData.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mCode);
+        dest.writeInt(resultCount);
+        dest.writeTypedList(mDataList);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final class ClassCreator implements Creator<BaseResponse>{
+        @Override
+        public BaseResponse createFromParcel(Parcel in) {
+            return new BaseResponse(in);
+        }
+
+        @Override
+        public BaseResponse[] newArray(int size) {
+            return new BaseResponse[size];
+        }
+    };
 
     public int getResultCount() {
         return resultCount;
