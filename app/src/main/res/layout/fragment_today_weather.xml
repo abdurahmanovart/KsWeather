@@ -1,49 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/current_weather_image_view"
+        android:id="@+id/today_weather_image_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/margin_small" />
+        android:layout_margin="@dimen/margin_small" />
 
     <TextView
         android:id="@+id/current_weather_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/current_weather_image_view" />
+        android:layout_alignBottom="@+id/today_weather_image_view"
+        android:layout_alignStart="@+id/next3h_weather_text_view"
+        android:layout_marginBottom="32dp"
+        android:textAlignment="center" />
 
     <ImageView
         android:id="@+id/next3h_weather_image_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/current_weather_text_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/margin_small" />
+        android:layout_below="@id/today_weather_image_view"
+        android:layout_margin="@dimen/margin_small" />
 
     <TextView
         android:id="@+id/next3h_weather_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/next3h_weather_image_view" />
+        android:layout_alignTop="@+id/next3h_weather_image_view"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="36dp"
+        android:layout_toEndOf="@+id/next3h_weather_image_view"
+        android:textAlignment="center" />
 
     <ImageView
         android:id="@+id/next6h_weather_image_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/next3h_weather_text_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/margin_small" />
+        android:layout_below="@id/next3h_weather_image_view"
+        android:layout_margin="@dimen/margin_small" />
 
     <TextView
         android:id="@+id/next6h_weather_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/next6h_weather_image_view" />
+        android:layout_alignBottom="@+id/next6h_weather_image_view"
+        android:layout_alignStart="@+id/next3h_weather_text_view"
+        android:layout_marginBottom="40dp"
+        android:textAlignment="center" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/next3h_weather_text_view"
+        app:srcCompat="@drawable/temperature_humid_wind" />
 
 </RelativeLayout>
