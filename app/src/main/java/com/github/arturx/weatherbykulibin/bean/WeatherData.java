@@ -105,7 +105,7 @@ public class WeatherData implements Parcelable {
         return mDate;
     }
 
-    public WeatherMainData getMainWeatherDataData() {
+    public WeatherMainData getMainWeatherData() {
         return mMainWeatherDataData;
     }
 

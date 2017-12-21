@@ -42,7 +42,7 @@ public class CurrentWeatherFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mWeatherData = getArguments().getParcelable(MainActivity.TAG);
         mCityName = getArguments().getString(MainActivity.EXTRA_CITY_NAME);
-        System.out.println(mWeatherData.getMainWeatherDataData().getTemperature());
+        System.out.println(mWeatherData.getMainWeatherData().getTemperature());
     }
 
     @Nullable
@@ -61,9 +61,9 @@ public class CurrentWeatherFragment extends Fragment {
 
     private void setValuesToViews() {
         mWeatherImage.setImageResource(R.drawable.icon_rainy_weather);
-        mTemperatureTextView.setText(String.format("Температура воздуха %sC", String.valueOf(mWeatherData.getMainWeatherDataData().getTemperature())));
+        mTemperatureTextView.setText(String.format("Температура воздуха %sC", String.valueOf(mWeatherData.getMainWeatherData().getTemperature())));
         mWindTextView.setText(String.format("Скорость ветра %sм/с", String.valueOf(mWeatherData.getWindData().getSpeed())));
-        mHumidityTextView.setText(String.format("Влажность воздуха %s процентов", String.valueOf(mWeatherData.getMainWeatherDataData().getHumidity())));
+        mHumidityTextView.setText(String.format("Влажность воздуха %s процентов", String.valueOf(mWeatherData.getMainWeatherData().getHumidity())));
         mCityTextView.setText(String.format("Погода в %s", mCityName));
     }
 

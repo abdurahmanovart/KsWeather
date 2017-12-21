@@ -79,11 +79,11 @@ public class TodayWeatherFragment extends Fragment {
 
     private String getWeatherTextData(WeatherData weatherData) {
         StringBuilder sb = new StringBuilder();
-        sb.append(weatherData.getMainWeatherDataData().getTemperature());
+        sb.append(weatherData.getMainWeatherData().getTemperature());
         sb.append("С    ");
         sb.append(weatherData.getWindData().getSpeed());
         sb.append(" м/с    ");
-        sb.append(weatherData.getMainWeatherDataData().getHumidity());
+        sb.append(weatherData.getMainWeatherData().getHumidity());
         sb.append("%");
         return sb.toString();
     }

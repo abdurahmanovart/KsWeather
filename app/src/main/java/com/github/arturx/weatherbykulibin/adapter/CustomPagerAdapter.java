@@ -5,8 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.github.arturx.weatherbykulibin.CurrentWeatherFragment;
-import com.github.arturx.weatherbykulibin.R;
-import com.github.arturx.weatherbykulibin.ThreeDayWeatherFragment;
+import com.github.arturx.weatherbykulibin.FiveDayWeatherFragment;
 import com.github.arturx.weatherbykulibin.TodayWeatherFragment;
 import com.github.arturx.weatherbykulibin.bean.BaseResponse;
 import com.github.arturx.weatherbykulibin.bean.WeatherData;
@@ -36,7 +35,7 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return TodayWeatherFragment.newInstance(mWeatherDataList);
             case 2:
-                return ThreeDayWeatherFragment.newInstance(mWeatherDataList);
+                return FiveDayWeatherFragment.newInstance(mWeatherDataList);
             default:
                 return null;
         }
