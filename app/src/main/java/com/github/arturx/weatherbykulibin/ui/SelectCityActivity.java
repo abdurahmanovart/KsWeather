@@ -82,5 +82,4 @@ public class SelectCityActivity extends AppCompatActivity {
                 .create()
                 .show();
     }
-
 }

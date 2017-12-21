@@ -13,7 +13,7 @@ import com.google.common.base.Objects;
  * Created by arturx on 07.12.17.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WindData implements Parcelable{
+public class WindData implements Parcelable {
 
     public static final ClassCreator CREATOR = new ClassCreator();
 

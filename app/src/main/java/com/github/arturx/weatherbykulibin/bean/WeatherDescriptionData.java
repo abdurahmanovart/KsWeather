@@ -13,7 +13,7 @@ import com.google.common.base.Objects;
  * Created by arturx on 07.12.17.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WeatherDescriptionData implements Parcelable{
+public class WeatherDescriptionData implements Parcelable {
 
     public static final ClassCreator CREATOR = new ClassCreator();
 
@@ -23,6 +23,10 @@ public class WeatherDescriptionData implements Parcelable{
 
     @JsonProperty("description")
     private String mDescription;
+
+    public String getDescription() {
+        return mDescription;
+    }
 
     protected WeatherDescriptionData(Parcel in) {
         mDescription = in.readString();
@@ -50,7 +54,7 @@ public class WeatherDescriptionData implements Parcelable{
         public WeatherDescriptionData[] newArray(int size) {
             return new WeatherDescriptionData[size];
         }
-    };
+    }
 
     @JsonIgnore
     @Override

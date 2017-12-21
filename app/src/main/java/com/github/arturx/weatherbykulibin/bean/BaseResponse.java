@@ -15,7 +15,7 @@ import java.util.List;
  * Created by arturx on 07.12.17.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BaseResponse implements Parcelable{
+public class BaseResponse implements Parcelable {
 
     public static final ClassCreator CREATOR = new ClassCreator();
 
@@ -34,25 +34,30 @@ public class BaseResponse implements Parcelable{
     @JsonProperty("city")
     private City mCity;
 
+
     protected BaseResponse(Parcel in) {
         mCode = in.readInt();
         resultCount = in.readInt();
         mDataList = in.createTypedArrayList(WeatherData.CREATOR);
+        mCity = in.readParcelable(City.class.getClassLoader());
     }
 
+    @JsonIgnore
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mCode);
         dest.writeInt(resultCount);
         dest.writeTypedList(mDataList);
+        dest.writeParcelable(mCity, flags);
     }
 
+    @JsonIgnore
     @Override
     public int describeContents() {
         return 0;
     }
 
-    public static final class ClassCreator implements Creator<BaseResponse>{
+    public static final class ClassCreator implements Creator<BaseResponse> {
         @Override
         public BaseResponse createFromParcel(Parcel in) {
             return new BaseResponse(in);
@@ -62,7 +67,7 @@ public class BaseResponse implements Parcelable{
         public BaseResponse[] newArray(int size) {
             return new BaseResponse[size];
         }
-    };
+    }
 
     public int getResultCount() {
         return resultCount;
@@ -74,6 +79,10 @@ public class BaseResponse implements Parcelable{
 
     public int getCode() {
         return mCode;
+    }
+
+    public City getCity() {
+        return mCity;
     }
 
     @JsonIgnore

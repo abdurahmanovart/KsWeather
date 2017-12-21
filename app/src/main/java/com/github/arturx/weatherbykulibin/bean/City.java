@@ -1,5 +1,8 @@
 package com.github.arturx.weatherbykulibin.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +13,9 @@ import com.google.common.base.Objects;
  * Created by arturx on 10.12.17.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class City {
+public class City implements Parcelable {
+
+    public static final ClassCreator CREATOR = new ClassCreator();
 
     public City() {
         //empty constructor needed by Jackson
@@ -22,7 +27,39 @@ public class City {
     @JsonProperty("country")
     private String mCountryCode;
 
-    public String getCItyName() {
+    protected City(Parcel in) {
+        mCItyName = in.readString();
+        mCountryCode = in.readString();
+    }
+
+    @JsonIgnore
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mCItyName);
+        dest.writeString(mCountryCode);
+    }
+
+    @JsonIgnore
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final class ClassCreator implements Creator<City> {
+        @Override
+        public City createFromParcel(Parcel in) {
+            return new City(in);
+        }
+
+        @Override
+        public City[] newArray(int size) {
+            return new City[size];
+        }
+    }
+
+    ;
+
+    public String getCityName() {
         return mCItyName;
     }
 

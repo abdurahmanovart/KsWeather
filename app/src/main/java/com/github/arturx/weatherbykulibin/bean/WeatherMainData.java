@@ -13,7 +13,7 @@ import com.google.common.base.Objects;
  * Created by arturx on 07.12.17.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WeatherMainData implements Parcelable{
+public class WeatherMainData implements Parcelable {
 
     public static final ClassCreator CREATOR = new ClassCreator();
 

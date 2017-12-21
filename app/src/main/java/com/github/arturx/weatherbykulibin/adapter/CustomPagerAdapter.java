@@ -51,11 +51,11 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Текущая погода";
+                return "Текущая";
             case 1:
-                return "Погода сегодня";
+                return "Сегодня";
             case 2:
-                return "Погода на 5 дней";
+                return "На 5 дней";
             default:
                 return "Погода";
         }
