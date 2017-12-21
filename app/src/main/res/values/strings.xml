@@ -11,4 +11,7 @@
     <string name="yes">Да</string>
     <string name="exit_app_question">Выйти из приложения?</string>
     <string name="exit">Выход</string>
+    <string name="next_3h_weather">Погода через 3 часа</string>
+    <string name="next_6h_weather">Погода через 6 часов</string>
+    <string name="next_9h_weather">Погода через 9 часов</string>
 </resources>

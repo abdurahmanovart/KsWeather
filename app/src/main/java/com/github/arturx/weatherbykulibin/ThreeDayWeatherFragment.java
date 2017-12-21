@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ThreeDayWeatherFragment extends Fragment {
 
-    public static ThreeDayWeatherFragment newInstance(List<WeatherData> data){
+    public static ThreeDayWeatherFragment newInstance(List<WeatherData> data) {
         ThreeDayWeatherFragment fragment = new ThreeDayWeatherFragment();
         return fragment;
     }
@@ -28,7 +28,7 @@ public class ThreeDayWeatherFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_three_day_weather,null);
+        View view = inflater.inflate(R.layout.fragment_three_day_weather, null);
         return view;
     }
 

@@ -4,10 +4,12 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:textAlignment="center"
         android:id="@+id/city_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <ImageView
         android:id="@+id/current_weather_image_view"
@@ -18,27 +20,34 @@
         android:layout_marginTop="@dimen/margin_big" />
 
     <TextView
-        android:padding="@dimen/padding_small"
-        android:layout_marginTop="@dimen/margin_small"
+        android:textAlignment="center"
         android:id="@+id/temperature_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/current_weather_image_view" />
+        android:layout_below="@id/current_weather_image_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_small"
+        android:padding="@dimen/padding_small"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:padding="@dimen/padding_small"
-        android:layout_marginTop="@dimen/margin_small"
+        android:textAlignment="center"
         android:id="@+id/wind_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/temperature_text_view" />
+        android:layout_below="@id/temperature_text_view"
+        android:layout_marginTop="@dimen/margin_small"
+        android:padding="@dimen/padding_small"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:padding="@dimen/padding_small"
-        android:layout_marginTop="@dimen/margin_small"
+        android:textAlignment="center"
         android:id="@+id/humidity_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/wind_text_view" />
+        android:layout_below="@id/wind_text_view"
+        android:layout_marginTop="@dimen/margin_small"
+        android:padding="@dimen/padding_small"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
 
 </RelativeLayout>

@@ -5,11 +5,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.github.arturx.weatherbykulibin.CurrentWeatherFragment;
+import com.github.arturx.weatherbykulibin.R;
 import com.github.arturx.weatherbykulibin.ThreeDayWeatherFragment;
 import com.github.arturx.weatherbykulibin.TodayWeatherFragment;
+import com.github.arturx.weatherbykulibin.bean.BaseResponse;
 import com.github.arturx.weatherbykulibin.bean.WeatherData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,26 +20,25 @@ import java.util.List;
 public class CustomPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<WeatherData> mWeatherDataList;
+    private String mCityName;
 
-    public void setWeatherDataList(List<WeatherData> weatherDataList) {
-        mWeatherDataList = weatherDataList;
-    }
-
-    public CustomPagerAdapter(FragmentManager fm) {
+    public CustomPagerAdapter(FragmentManager fm, BaseResponse response) {
         super(fm);
+        mWeatherDataList = response.getDataList();
+        mCityName = response.getCity().getCityName();
     }
 
     @Override
     public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return CurrentWeatherFragment.newInstance(mWeatherDataList.get(0));
-                case 1:
-                    return TodayWeatherFragment.newInstance(mWeatherDataList);
-                case 2:
-                    return ThreeDayWeatherFragment.newInstance(mWeatherDataList);
-                default:
-                    return null;
+        switch (position) {
+            case 0:
+                return CurrentWeatherFragment.newInstance(mWeatherDataList.get(0), mCityName);
+            case 1:
+                return TodayWeatherFragment.newInstance(mWeatherDataList);
+            case 2:
+                return ThreeDayWeatherFragment.newInstance(mWeatherDataList);
+            default:
+                return null;
         }
     }
 
@@ -49,6 +49,15 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-       return String.valueOf(mWeatherDataList.get(position).getWindData().getSpeed());
+        switch (position){
+            case 0:
+                return "Текущая погода";
+            case 1:
+                return "Погода сегодня";
+            case 2:
+                return "Погода на 5 дней";
+            default:
+                return "Погода";
+        }
     }
 }

@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.github.arturx.weatherbykulibin.adapter.CustomPagerAdapter;
 import com.github.arturx.weatherbykulibin.bean.BaseResponse;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String API_KEY = "da5a35e057d3d8d4df5a4b669da41d0d";
     public static final String ACCURACY = "like";
     public static final String UNITS = "metric";
+    public static final String TAG = "extra_weather_data";
 
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
@@ -32,13 +35,15 @@ public class MainActivity extends AppCompatActivity {
     private CustomPagerAdapter mAdapter;
     private WeatherService mService;
     private String mCityName;
+    private BaseResponse mBaseResponse;
+
+    //region activity lifecycle
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getCityName();
-        initUI();
     }
 
 
@@ -47,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 2 && resultCode == RESULT_OK) {
             mCityName = data.getExtras().getString(EXTRA_CITY_NAME);
             getDataFromServer();
-
         }
     }
 
@@ -57,27 +61,37 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
-                try {
-                    System.out.println(response.body().getDataList().get(0).getMainWeatherDataData().getTemperature());
-                } catch (Exception e) {
+                if (response.body() == null) {
+                    Toast.makeText(MainActivity.this, "Что-то пошло не так, попробуйте еще раз", Toast.LENGTH_LONG).show();
                     getCityName();
+                } else {
+                    mBaseResponse = response.body();
+                    initUI();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<BaseResponse> call, @NonNull Throwable t) {
-                System.out.println(t.getMessage());
             }
         });
 
     }
 
-    //region private methods
+    //endregion
+
+    // region private methods
 
     private void initUI() {
+        initAdapter();
         initToolbar();
-        initTabLayout();
         initViewPager();
+        initTabLayout();
+    }
+
+    private void initAdapter() {
+        FragmentManager manager = getSupportFragmentManager();
+        mAdapter = new CustomPagerAdapter(manager, mBaseResponse);
+        mAdapter.notifyDataSetChanged();
     }
 
     private void initToolbar() {
@@ -86,14 +100,16 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void initTabLayout() {
-        mTabLayout = findViewById(R.id.tab_layout);
-        mTabLayout.setupWithViewPager(mViewPager);
-    }
-
     private void initViewPager() {
         mViewPager = findViewById(R.id.view_pager);
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(3);
+    }
+
+    private void initTabLayout() {
+        mTabLayout = findViewById(R.id.tab_layout);
+        mTabLayout.setFitsSystemWindows(true);
+        mTabLayout.setupWithViewPager(mViewPager, true);
     }
 
     private void getCityName() {
