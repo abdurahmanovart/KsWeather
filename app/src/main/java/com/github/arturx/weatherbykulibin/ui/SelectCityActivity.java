@@ -6,10 +6,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.github.arturx.weatherbykulibin.MapFragment;
 import com.github.arturx.weatherbykulibin.R;
 
 public class SelectCityActivity extends AppCompatActivity {
@@ -67,6 +69,10 @@ public class SelectCityActivity extends AppCompatActivity {
                 }
             }
         });
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction()
+                .replace(R.id.map_container, MapFragment.newInstance())
+                .commit();
     }
 
     private void showAlertDialog() {

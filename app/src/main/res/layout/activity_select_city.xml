@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:theme="@style/Theme.AppCompat.Dialog"
     tools:context="com.github.arturx.weatherbykulibin.ui.SelectCityActivity">
@@ -25,13 +25,20 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:layout_marginBottom="@dimen/margin_small"
         android:id="@+id/ok_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/text_input_layout"
+        android:layout_marginBottom="11dp"
         android:layout_toEndOf="@+id/text_input_layout"
         android:text="@string/ok_button" />
+
+    <FrameLayout
+        android:id="@+id/map_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/text_input_layout" />
+
 
 
 </RelativeLayout>

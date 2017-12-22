@@ -49,6 +49,8 @@ public class FiveDayWeatherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_five_day_weather, null);
         mRecyclerView = view.findViewById(R.id.recycler_view);
+//        mRecyclerView.setHasFixedSize(true);
+//        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(),2));
         mRecyclerView.setAdapter(mAdapter);
         return view;
     }
