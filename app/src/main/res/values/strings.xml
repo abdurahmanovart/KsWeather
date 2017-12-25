@@ -14,4 +14,7 @@
     <string name="next_3h_weather">Погода через 3 часа</string>
     <string name="next_6h_weather">Погода через 6 часов</string>
     <string name="next_9h_weather">Погода через 9 часов</string>
+    <string name="or">Или</string>
+    <string name="select_city_on_map">Выберите город на карте</string>
+    <string name="map_hint">Д</string>
 </resources>

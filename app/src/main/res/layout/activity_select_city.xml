@@ -33,12 +33,37 @@
         android:layout_toEndOf="@+id/text_input_layout"
         android:text="@string/ok_button" />
 
+
     <FrameLayout
         android:id="@+id/map_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/text_input_layout" />
 
+    <LinearLayout
+        android:id="@+id/place_for_map_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/or"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
+
+        <Button
+            android:id="@+id/show_map_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_big"
+            android:text="@string/select_city_on_map" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>
