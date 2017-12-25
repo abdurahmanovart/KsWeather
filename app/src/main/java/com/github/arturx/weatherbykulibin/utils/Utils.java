@@ -8,6 +8,9 @@ import com.github.arturx.weatherbykulibin.R;
 
 public class Utils {
 
+    private Utils(){
+        throw new IllegalStateException();
+    }
 
     public static int getWeatherImageId(String description) {
         description = description.toLowerCase();
@@ -24,5 +27,9 @@ public class Utils {
         else if (description.contains("snow"))
             return R.drawable.icon_snow_weather;
         return R.drawable.icon_mostly_cloudy;
+    }
+
+    public static int convertPressure(double hPa){
+        return (int) (hPa*0.750062);
     }
 }

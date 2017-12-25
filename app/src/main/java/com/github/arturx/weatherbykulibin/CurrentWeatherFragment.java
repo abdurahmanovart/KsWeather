@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.arturx.weatherbykulibin.bean.WeatherData;
+import com.github.arturx.weatherbykulibin.utils.Utils;
 
 /**
  * Created by arturx on 06.12.17.
@@ -21,6 +22,7 @@ public class CurrentWeatherFragment extends Fragment {
     private TextView mTemperatureTextView;
     private TextView mWindTextView;
     private TextView mHumidityTextView;
+    private TextView mPressureTextView;
     private TextView mCityTextView;
     private WeatherData mWeatherData;
     private String mCityName;
@@ -60,10 +62,15 @@ public class CurrentWeatherFragment extends Fragment {
     }
 
     private void setValuesToViews() {
+        mPressureTextView.setText(String.format("Давление %s мм рт.ст",
+                String.valueOf(Utils.convertPressure(Double.parseDouble(mWeatherData.getMainWeatherData().getPressure())))));
         mWeatherImage.setImageResource(R.drawable.icon_rainy_weather);
-        mTemperatureTextView.setText(String.format("Температура воздуха %sC", String.valueOf(mWeatherData.getMainWeatherData().getTemperature())));
-        mWindTextView.setText(String.format("Скорость ветра %sм/с", String.valueOf(mWeatherData.getWindData().getSpeed())));
-        mHumidityTextView.setText(String.format("Влажность воздуха %s процентов", String.valueOf(mWeatherData.getMainWeatherData().getHumidity())));
+        mTemperatureTextView.setText(String.format("%s C",
+                String.valueOf(mWeatherData.getMainWeatherData().getTemperature())));
+        mWindTextView.setText(String.format("Скорость ветра %s м/с",
+                String.valueOf(mWeatherData.getWindData().getSpeed())));
+        mHumidityTextView.setText(String.format("Влажность воздуха %s процентов",
+                String.valueOf(mWeatherData.getMainWeatherData().getHumidity())));
         mCityTextView.setText(String.format("Погода в %s", mCityName));
     }
 
@@ -76,6 +83,7 @@ public class CurrentWeatherFragment extends Fragment {
         mWeatherImage = view.findViewById(R.id.current_weather_image_view);
         mTemperatureTextView = view.findViewById(R.id.temperature_text_view);
         mWindTextView = view.findViewById(R.id.wind_text_view);
+        mPressureTextView = view.findViewById(R.id.pressure_text_view);
         mCityTextView = view.findViewById(R.id.city_text_view);
         mHumidityTextView = view.findViewById(R.id.humidity_text_view);
     }
