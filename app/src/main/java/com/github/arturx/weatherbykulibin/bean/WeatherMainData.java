@@ -27,9 +27,13 @@ public class WeatherMainData implements Parcelable {
     @JsonProperty("humidity")
     private int mHumidity;
 
+    @JsonProperty("pressure")
+    private String mPressure;
+
     protected WeatherMainData(Parcel in) {
         mTemperature = in.readDouble();
         mHumidity = in.readInt();
+        mPressure = in.readString();
     }
 
     @JsonIgnore
@@ -37,6 +41,7 @@ public class WeatherMainData implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeDouble(mTemperature);
         dest.writeInt(mHumidity);
+        dest.writeString(mPressure);
     }
 
     @JsonIgnore
@@ -53,6 +58,10 @@ public class WeatherMainData implements Parcelable {
         return mHumidity;
     }
 
+    public String getPressure() {
+        return mPressure;
+    }
+
     @JsonIgnore
     @Override
     public boolean equals(Object o) {
@@ -60,21 +69,24 @@ public class WeatherMainData implements Parcelable {
         if (o == null || getClass() != o.getClass()) return false;
         WeatherMainData that = (WeatherMainData) o;
         return Double.compare(that.mTemperature, mTemperature) == 0 &&
-                mHumidity == that.mHumidity;
+                mHumidity == that.mHumidity &&
+                Objects.equal(mPressure, that.mPressure);
     }
 
     @JsonIgnore
     @Override
     public int hashCode() {
-        return Objects.hashCode(mTemperature, mHumidity);
+        return Objects.hashCode(mTemperature, mHumidity,
+                mPressure);
     }
 
     @JsonIgnore
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
+        return Objects.toStringHelper(this)
                 .add("mTemperature", mTemperature)
                 .add("mHumidity", mHumidity)
+                .add("mPressure", mPressure)
                 .toString();
     }
 

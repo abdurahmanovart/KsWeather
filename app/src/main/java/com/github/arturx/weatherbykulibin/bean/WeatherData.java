@@ -1,6 +1,5 @@
 package com.github.arturx.weatherbykulibin.bean;
 
-import android.icu.util.Calendar;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -10,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
-import java.util.Date;
 import java.util.List;
 
 /**
