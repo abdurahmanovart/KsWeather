@@ -23,11 +23,14 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String EXTRA_LONGITUDE = "longitude";
+    public static final String EXTRA_LATITUDE = "latitude";
     public static final String EXTRA_CITY_NAME = "city_name";
     public static final String API_KEY = "da5a35e057d3d8d4df5a4b669da41d0d";
     public static final String ACCURACY = "like";
     public static final String UNITS = "metric";
     public static final String TAG = "extra_weather_data";
+    public static final int RESULT_FROM_MAP = -2;
 
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
@@ -50,14 +53,39 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 2 && resultCode == RESULT_OK) {
-            mCityName = data.getExtras().getString(EXTRA_CITY_NAME);
-            getDataFromServer();
+            String cityName = data.getExtras().getString(EXTRA_CITY_NAME);
+            getDataFromServer(cityName);
+        }
+        if (requestCode == 2 && resultCode == RESULT_FROM_MAP) {
+            getDataFromServer(data.getExtras().getDouble(EXTRA_LATITUDE), data.getExtras().getDouble(EXTRA_LONGITUDE));
         }
     }
 
-    private void getDataFromServer() {
+    private void getDataFromServer(String cityName) {
         mService = ApiClient.getClient().create(WeatherService.class);
-        Call<BaseResponse> call = mService.getWeatherData(mCityName, ACCURACY, UNITS, API_KEY);
+        Call<BaseResponse> call = mService.getWeatherData(cityName, ACCURACY, UNITS, API_KEY);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
+                if (response.body() == null) {
+                    Toast.makeText(MainActivity.this, "Что-то пошло не так, попробуйте еще раз", Toast.LENGTH_LONG).show();
+                    getCityName();
+                } else {
+                    mBaseResponse = response.body();
+                    initUI();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<BaseResponse> call, @NonNull Throwable t) {
+            }
+        });
+
+    }
+
+    private void getDataFromServer(double latitude, double longitude) {
+        mService = ApiClient.getClient().create(WeatherService.class);
+        Call<BaseResponse> call = mService.getWeatherData(latitude, longitude, ACCURACY, UNITS, API_KEY);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {

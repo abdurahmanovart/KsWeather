@@ -18,4 +18,10 @@ public interface WeatherService {
                                       @Query("units") String unit,
                                       @Query("appid") String apiKey);
 
+    @GET("forecast")
+    Call<BaseResponse> getWeatherData(@Query("lat") double latitude,
+                                      @Query("lon") double longitude,
+                                      @Query("type") String accuracy,
+                                      @Query("units") String unit,
+                                      @Query("appid") String apiKey);
 }
